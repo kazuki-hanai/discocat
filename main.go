@@ -110,8 +110,7 @@ func main() {
 			}
 		}
 
-		err := post()
-		if err != nil {
+		if post() != nil {
 			return err
 		}
 
