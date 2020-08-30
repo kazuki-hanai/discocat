@@ -11,9 +11,7 @@ discocat is a simple commandline utility to post snippets to Discord
 ## Building
 
 ```
-go get github.com/wan-nyan-wan/discocat && \
-cd $GOPATH/src/github.com/wan-nyan-wan/discocat && \
-go build
+go get -u github.com/wan-nyan-wan/discocat
 ```
 
 ## Installation
