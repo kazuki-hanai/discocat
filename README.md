@@ -48,3 +48,7 @@ $ discocat -c hello -f test.png
 ```
 
 ## Options
+
+### References
+
+Discocat is greatly inspired by [slackcat](https://github.com/bcicen/slackcat/blob/master/config.go).
