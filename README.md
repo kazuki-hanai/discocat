@@ -16,6 +16,12 @@ cd $GOPATH/src/github.com/wan-nyan-wan/discocat && \
 go build
 ```
 
+## Installation
+
+```
+go install github.com/wan-nyan-wan/discocat
+```
+
 ## Usage
 
 ```
