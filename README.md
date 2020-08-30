@@ -49,4 +49,4 @@ $ discocat -c hello -f test.png
 
 ## References
 
-discocat is greatly inspired by [slackcat](https://github.com/bcicen/slackcat/blob/master/config.go).
+discocat is greatly inspired by [slackcat](https://github.com/bcicen/slackcat).
