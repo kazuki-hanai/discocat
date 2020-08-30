@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"github.com/spf13/viper"
 	"golang.org/x/crypto/ssh/terminal"
 	"github.com/fatih/color"
@@ -70,16 +70,16 @@ func main() {
 	app.Version = version
 	app.OnUsageError = handleUsageError
 	app.Flags = []cli.Flag {
-		cli.StringFlag {
+		&cli.StringFlag {
 			Name: "comment, c",
 			Usage: "posting comment",
 		},
-		cli.StringFlag {
+		&cli.StringFlag {
 			Name: "filepath, f",
 			Usage: "filepath for upload",
 		},
 	}
-	app.Action = func(c *cli.Context) {
+	app.Action = func(c *cli.Context) error {
 		cmdConfig.filepath = c.String("filepath")
 		cmdConfig.comment = c.String("comment")
 
@@ -87,17 +87,16 @@ func main() {
 		viper.AddConfigPath(".")
 
 		if err := viper.ReadInConfig(); err != nil {
-			exitErr(err)
+			return err
 		}
 		err := viper.Unmarshal(&discoConfig)
 		if err != nil {
-			exitErr(err)
+			return err
 		}
 
 		if cmdConfig.filepath == "" && cmdConfig.comment == "" {
-			printErr(fmt.Errorf("Specify at least one --comment or --filepath option"))
 			cli.ShowAppHelp(c)
-			os.Exit(1)
+			return fmt.Errorf("Specify at least one --comment or --filepath option")
 		}
 
 
@@ -105,12 +104,17 @@ func main() {
 			// TODO: cooperate with pipe
 			_, err := ioutil.ReadAll(os.Stdin)
 			if err != nil {
-				exitErr(err)
+				return err
 			}
 		}
 
 		post()
+
+		return nil
 	}
 
-	app.Run(os.Args)
+	err := app.Run(os.Args)
+	if err != nil {
+		exitErr(err)
+	}
 }
