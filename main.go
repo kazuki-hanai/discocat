@@ -41,24 +41,26 @@ func printFullVersion(c *cli.Context) {
 	fmt.Fprintf(c.App.Writer, "%v version %v, build %v\n", c.App.Name, c.App.Version, build)
 }
 
-func post() {
+func post() error {
 	discord, err := discordgo.New("Bot " + discoConfig.Token)
 	if err != nil {
-		exitErr(err)
+		return err
 	}
 	if cmdConfig.comment != "" {
 		_, err := discord.ChannelMessageSend(discoConfig.ChannelID, cmdConfig.comment)
 		if err != nil {
-			exitErr(err)
+			return err
 		}
 	}
 	if cmdConfig.filepath != "" {
 		file, err := os.Open(cmdConfig.filepath)
 		if err != nil {
-			exitErr(err)
+			return err
 		}
 		discord.ChannelFileSend(discoConfig.ChannelID, cmdConfig.filepath, file)
 	}
+
+	return nil
 }
 
 func main() {
@@ -108,7 +110,10 @@ func main() {
 			}
 		}
 
-		post()
+		err := post()
+		if err != nil {
+			return err
+		}
 
 		return nil
 	}
