@@ -5,7 +5,7 @@ discocat is a simple commandline utility to post snippets to Discord
 ## Configuration
 
 1. Create Discord bot and get Token ID
-2. Get ChannelID to post snippets
+2. Get ChannelID for posting snippets
 3. write configuration(refereing to `config.yml.sample`)
 
 ## Building
@@ -17,5 +17,25 @@ go build
 ```
 
 ## Usage
+
+```
+NAME:
+   discocat - redirect a file or string to Discord
+
+USAGE:
+   discocat [global options] command [command options] [arguments...]
+
+VERSION:
+   dev-build
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --comment value, -c value   posting comment
+   --filepath value, -f value  filepath for upload
+   --help, -h                  show help
+   --version, -v               print the version
+```
 
 ## Options
