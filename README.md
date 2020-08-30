@@ -38,4 +38,13 @@ GLOBAL OPTIONS:
    --version, -v               print the version
 ```
 
+### Examples
+
+```
+$ echo "aiueo" | xargs discocat -c
+$ discocat -c hello
+$ discocat -f test.png
+$ discocat -c hello -f test.png
+```
+
 ## Options
