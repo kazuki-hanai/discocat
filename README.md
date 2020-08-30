@@ -2,6 +2,19 @@
 
 discocat is a simple commandline utility to post snippets to Discord
 
+## Quick Start
+
+Make sure your `PATH` includes the `$GOPATH/bin` directory.
+
+```
+$ go get http://github.com/wan-nyan-wan/discocat
+$ cat <<EOF
+token: "your discord bot token"
+channelID: "your discord channel ID"
+EOF
+$ discocat -c "Hello World"
+```
+
 ## Configuration
 
 1. Create Discord bot and get Token ID
