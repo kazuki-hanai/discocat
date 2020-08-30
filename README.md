@@ -8,7 +8,7 @@ Make sure your `PATH` includes the `$GOPATH/bin` directory.
 
 ```
 $ go get http://github.com/wan-nyan-wan/discocat
-$ cat <<EOF
+$ cat <<EOF > config.yml
 token: "your discord bot token"
 channelID: "your discord channel ID"
 EOF
