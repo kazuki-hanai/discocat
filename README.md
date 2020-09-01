@@ -8,11 +8,12 @@ Make sure your `PATH` includes the `$GOPATH/bin` directory.
 
 ```
 $ go get http://github.com/wan-nyan-wan/discocat
-$ cat <<EOF > config.yml
+$ mkdir -p ~/.config/discocat
+$ cat <<EOF > ~/.config/discocat/config.yml
 token: "your discord bot token"
 channelID: "your discord channel ID"
 EOF
-$ discocat -c "Hello World"
+$ echo "hello" | discocat
 ```
 
 ## Configuration
@@ -24,13 +25,14 @@ $ discocat -c "Hello World"
 ## Building
 
 ```
-go get -u github.com/wan-nyan-wan/discocat
+$ git clone https://github.com/wan-nyan-wan/discocat.git
+$ go build
 ```
 
 ## Installation
 
 ```
-go install github.com/wan-nyan-wan/discocat
+$ go get -u github.com/wan-nyan-wan/discocat
 ```
 
 ## Usage
@@ -45,23 +47,25 @@ USAGE:
 VERSION:
    dev-build
 
+AUTHOR:
+   hnkz <hanakazu8989@gmail.com>
+
 COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --comment value, -c value   posting comment
-   --filepath value, -f value  filepath for upload
-   --help, -h                  show help
-   --version, -v               print the version
+   --configigure, -c  [NOT IMPREMENTED] Configure discocat (default: false)
+   --list, -l         [NOT IMPREMENTED] List bot and channel names (default: false)
+   --tee, -t          [NOT IMPREMENTED] Print stdin to screen before posting (default: false)
+   --help, -h         show help (default: false)
+   --version, -v      print the version (default: false)
 ```
 
 ### Examples
 
 ```
-$ echo "aiueo" | xargs discocat -c
-$ discocat -c hello
-$ discocat -f test.png
-$ discocat -c hello -f test.png
+$ echo "aiueo" | discocat
+$ cat test.png | discocat
 ```
 
 ## References

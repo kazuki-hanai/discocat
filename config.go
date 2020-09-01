@@ -10,4 +10,5 @@ type DiscordConfig struct {
 type CommandConfig struct {
 	comment string
 	filepath string
+	isPipe bool
 }
