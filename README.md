@@ -66,6 +66,7 @@ GLOBAL OPTIONS:
 ```
 $ echo "aiueo" | discocat
 $ cat test.png | discocat
+$ cat test.jpeg | discocat
 ```
 
 ## References
