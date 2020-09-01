@@ -61,7 +61,7 @@ USAGE:
    discocat [global options] command [command options] [arguments...]
 
 VERSION:
-   dev-build
+   v.1.0
 
 AUTHOR:
    hnkz <hanakazu8989@gmail.com>
