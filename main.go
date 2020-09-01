@@ -112,7 +112,7 @@ func main() {
 		&cli.BoolFlag {
 			Name: "list",
 			Aliases: []string{"l"},
-			Usage: "[NOT IMPREMENTED] list bot and channel names",
+			Usage: "list bot and channel names",
 		},
 		&cli.StringFlag {
 			Name: "bot",
@@ -129,16 +129,10 @@ func main() {
 		&cli.BoolFlag {
 			Name: "tee",
 			Aliases: []string{"t"},
-			Usage: "[NOT IMPREMENTED] print stdin to screen before posting",
+			Usage: "print stdin to screen before posting",
 		},
 	}
 	app.Action = func(c *cli.Context) error {
-
-		if c.Args().Len() == 0 {
-			cli.ShowAppHelp(c)
-			return cli.Exit("", 0)
-		}
-
 		var (
 			botTokenKey = c.String("bot")
 			channelIDKey = c.String("channel")
@@ -156,7 +150,16 @@ func main() {
 			return exitErr(err)
 		}
 
+		if c.Bool("list") {
+			discoConfig.printConfig()
+			return cli.Exit("", 0)
+		}
+
 		raw, err := ioutil.ReadAll(os.Stdin)
+
+		if c.Bool("tee") {
+			fmt.Fprint(os.Stderr, string(raw))
+		}
 
 		var (
 			botToken = discoConfig[botTokenKey].BotToken

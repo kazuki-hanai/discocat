@@ -70,10 +70,10 @@ COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --list, -l                 [NOT IMPREMENTED] list bot and channel names (default: false)
+   --list, -l                 list bot and channel names (default: false)
    --bot value, -b value      bot name to post (default: "default")
    --channel value, -c value  channel name to post (default: "default")
-   --tee, -t                  [NOT IMPREMENTED] print stdin to screen before posting (default: false)
+   --tee, -t                  print stdin to screen before posting (default: false)
    --help, -h                 show help (default: false)
    --version, -v              print the version (default: false)
 ```
