@@ -20,7 +20,7 @@ import (
 var (
 	commandName = "discocat"
 	build   = ""
-	version = "dev-build"
+	version = "v.1.0"
 	defaultConfigPaths = os.Getenv("HOME") + "/.config/discocat/"
 )
 
