@@ -81,10 +81,13 @@ GLOBAL OPTIONS:
 ### Examples
 
 ```
-$ echo "aiueo" | discocat # post text to default channel via default bot
-$ cat test.png | discocat # post image to default channel via default bot
-$ echo "hello" | discocat --bot testbot # post default channel via testbot
-$ cat test.jpeg | discocat --bot testbot --channel testchannel # post image to testchannel via testbot
+$ discocat                                                      # post stdin to default channel via default bot
+$ discocat -h                                                   # show help
+$ discocat -l                                                   # show config
+$ echo "aiueo" | discocat                                       # post text to default channel via default bot
+$ cat test.png | discocat                                       # post image to default channel via default bot
+$ echo "hello" | discocat --bot testbot                         # post default channel via testbot
+$ cat test.jpeg | discocat --bot testbot --channel testchannel  # post image to testchannel via testbot
 ```
 
 ## References
