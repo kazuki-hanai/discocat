@@ -21,8 +21,6 @@ var (
 	build   = ""
 	version = "dev-build"
 	defaultConfigPaths = os.Getenv("HOME") + "/.config/discocat/"
-	cmdConfig CommandConfig
-	discoConfig DiscordConfig
 )
 
 func handleUsageError(c *cli.Context, err error, _ bool) error {
@@ -60,8 +58,8 @@ func detectMessageType(raw []byte) (int, error) {
 	}
 }
 
-func post(raw []byte) error {
-	discord, err := discordgo.New("Bot " + discoConfig.Token)
+func post(raw []byte, token string, channel string) error {
+	discord, err := discordgo.New("Bot " + token)
 	if err != nil {
 		return err
 	}
@@ -72,7 +70,7 @@ func post(raw []byte) error {
 	}
 
 	if mtype == Text {
-		_, err := discord.ChannelMessageSend(discoConfig.ChannelID, string(raw))
+		_, err := discord.ChannelMessageSend(channel, string(raw))
 		if err != nil {
 			return err
 		}
@@ -86,7 +84,7 @@ func post(raw []byte) error {
 		} else if mtype == Jpeg {
 			filename = fmt.Sprintf("%s.%s", times, ".jpg")
 		}
-		discord.ChannelFileSend(discoConfig.ChannelID, filename, bytes.NewReader(raw))
+		discord.ChannelFileSend(channel, filename, bytes.NewReader(raw))
 	}
 
 	return nil
@@ -97,7 +95,7 @@ func main() {
 
 	app := cli.NewApp()
 	app.Name = "discocat"
-	app.Usage = "redirect a file or string to Discord"
+	app.Usage = "rediret a file or string to Discord"
 	app.Version = version
 	app.OnUsageError = handleUsageError
 	app.Authors = []*cli.Author {
@@ -108,24 +106,33 @@ func main() {
 	}
 	app.Flags = []cli.Flag {
 		&cli.BoolFlag {
-			Name: "configigure",
-			Aliases: []string{"c"},
-			Usage: "[NOT IMPREMENTED] Configure discocat",
-		},
-		&cli.BoolFlag {
 			Name: "list",
 			Aliases: []string{"l"},
-			Usage: "[NOT IMPREMENTED] List bot and channel names",
+			Usage: "[NOT IMPREMENTED] list bot and channel names",
+		},
+		&cli.StringFlag {
+			Name: "bot",
+			Aliases: []string{"b"},
+			Value: "default",
+			Usage: "bot name to post",
+		},
+		&cli.StringFlag {
+			Name: "channel",
+			Aliases: []string{"c"},
+			Value: "default",
+			Usage: "channel name to post",
 		},
 		&cli.BoolFlag {
 			Name: "tee",
 			Aliases: []string{"t"},
-			Usage: "[NOT IMPREMENTED] Print stdin to screen before posting",
+			Usage: "[NOT IMPREMENTED] print stdin to screen before posting",
 		},
 	}
 	app.Action = func(c *cli.Context) error {
-		cmdConfig.filepath = c.String("")
-		cmdConfig.comment = c.String("comment")
+		var (
+			botTokenKey = c.String("bot")
+			channelIDKey = c.String("channel")
+		)
 
 		viper.SetConfigName("config")
 		viper.AddConfigPath(defaultConfigPaths)
@@ -133,6 +140,7 @@ func main() {
 		if err := viper.ReadInConfig(); err != nil {
 			return err
 		}
+		var discoConfig DiscordConfig
 		err := viper.Unmarshal(&discoConfig)
 		if err != nil {
 			return err
@@ -140,7 +148,12 @@ func main() {
 
 		raw, err := ioutil.ReadAll(os.Stdin)
 
-		if post(raw) != nil {
+		var (
+			botToken = discoConfig[botTokenKey].BotToken
+			channelID = discoConfig[botTokenKey].ChannelIDs[channelIDKey]
+		)
+
+		if post(raw, botToken, channelID) != nil {
 			return err
 		}
 

@@ -1,2 +1,9 @@
-token: "sample token"
-channelID: "sample channel ID"
+default:
+  BotToken: "bot token"
+  ChannelIDs:
+    default: "channel id"
+    channel01: "channel id"
+bot01:
+  BotToken: "bot token"
+  ChannelIDs:
+    default: "channel id"
