@@ -133,6 +133,12 @@ func main() {
 		},
 	}
 	app.Action = func(c *cli.Context) error {
+
+		if c.Args().Len() == 0 {
+			cli.ShowAppHelp(c)
+			return cli.Exit("", 0)
+		}
+
 		var (
 			botTokenKey = c.String("bot")
 			channelIDKey = c.String("channel")
