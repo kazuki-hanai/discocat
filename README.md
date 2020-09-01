@@ -10,17 +10,33 @@ Make sure your `PATH` includes the `$GOPATH/bin` directory.
 $ go get http://github.com/wan-nyan-wan/discocat
 $ mkdir -p ~/.config/discocat
 $ cat <<EOF > ~/.config/discocat/config.yml
-token: "your discord bot token"
-channelID: "your discord channel ID"
+default:
+  BotToken: "bot token"
+  ChannelIDs:
+    default: "channel id"
 EOF
 $ echo "hello" | discocat
 ```
 
 ## Configuration
 
-1. Create Discord bot and get Token ID
-2. Get ChannelID for posting snippets
-3. write configuration in `config.yml`(refereing to `config.yml.sample`)
+1. Create Discord bot and get bot TokenID
+2. Get ChannelID that you want to post snippets
+3. write configuration in `~/.config/discocat/config.yml`(refereing to config.yml.sample`)
+
+The below is a sample configuration. In default, discocat use `default` as a key of both bot and channel. If you want to use others, use `--bot` or `--channel` option.
+
+```
+default:
+  BotToken: "bot token"
+  ChannelIDs:
+    default: "channel id"
+    channel01: "channel id"
+bot01:
+  BotToken: "bot token"
+  ChannelIDs:
+    default: "channel id"
+```
 
 ## Building
 
@@ -54,19 +70,21 @@ COMMANDS:
    help, h  Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
-   --configigure, -c  [NOT IMPREMENTED] Configure discocat (default: false)
-   --list, -l         [NOT IMPREMENTED] List bot and channel names (default: false)
-   --tee, -t          [NOT IMPREMENTED] Print stdin to screen before posting (default: false)
-   --help, -h         show help (default: false)
-   --version, -v      print the version (default: false)
+   --list, -l                 [NOT IMPREMENTED] list bot and channel names (default: false)
+   --bot value, -b value      bot name to post (default: "default")
+   --channel value, -c value  channel name to post (default: "default")
+   --tee, -t                  [NOT IMPREMENTED] print stdin to screen before posting (default: false)
+   --help, -h                 show help (default: false)
+   --version, -v              print the version (default: false)
 ```
 
 ### Examples
 
 ```
-$ echo "aiueo" | discocat
-$ cat test.png | discocat
-$ cat test.jpeg | discocat
+$ echo "aiueo" | discocat # post text to default channel via default bot
+$ cat test.png | discocat # post image to default channel via default bot
+$ echo "hello" | discocat --bot testbot # post default channel via testbot
+$ cat test.jpeg | discocat --bot testbot --channel testchannel # post image to testchannel via testbot
 ```
 
 ## References
