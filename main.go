@@ -138,7 +138,6 @@ func main() {
 			return err
 		}
 
-
 		raw, err := ioutil.ReadAll(os.Stdin)
 
 		if post(raw) != nil {
