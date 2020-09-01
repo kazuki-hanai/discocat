@@ -50,9 +50,9 @@ func detectMessageType(raw []byte) (int, error) {
 	} else {
 		if format == "png" {
 			return Png, nil
-		} else if format == "Gif" {
+		} else if format == "gif" {
 			return Gif, nil
-		} else if format == "Jpeg" {
+		} else if format == "jpeg" {
 			return Jpeg, nil
 		} else {
 			return -1, cli.NewExitError("Could not detect filetype", 1)
