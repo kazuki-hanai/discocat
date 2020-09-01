@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"fmt"
+	"errors"
 	"io/ioutil"
 	"time"
 	"bytes"
@@ -26,7 +27,7 @@ var (
 func handleUsageError(c *cli.Context, err error, _ bool) error {
 	printErr(fmt.Errorf("%s %s", "Incorrect Usage.", err.Error()))
 	cli.ShowAppHelp(c)
-	return cli.NewExitError("", 1)
+	return cli.Exit("", 1)
 }
 
 func printFullVersion(c *cli.Context) {
@@ -45,16 +46,16 @@ func detectMessageType(raw []byte) (int, error) {
 	_, format, err := image.Decode(bytes.NewReader(raw))
 	if err != nil {
 		return Text, nil
+	}
+
+	if format == "png" {
+		return Png, nil
+	} else if format == "gif" {
+		return Gif, nil
+	} else if format == "jpeg" {
+		return Jpeg, nil
 	} else {
-		if format == "png" {
-			return Png, nil
-		} else if format == "gif" {
-			return Gif, nil
-		} else if format == "jpeg" {
-			return Jpeg, nil
-		} else {
-			return -1, cli.NewExitError("Could not detect filetype", 1)
-		}
+		return -1, errors.New("Could not detect filetype")
 	}
 }
 
@@ -84,7 +85,10 @@ func post(raw []byte, token string, channel string) error {
 		} else if mtype == Jpeg {
 			filename = fmt.Sprintf("%s.%s", times, ".jpg")
 		}
-		discord.ChannelFileSend(channel, filename, bytes.NewReader(raw))
+		_, err := discord.ChannelFileSend(channel, filename, bytes.NewReader(raw))
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -95,7 +99,7 @@ func main() {
 
 	app := cli.NewApp()
 	app.Name = "discocat"
-	app.Usage = "rediret a file or string to Discord"
+	app.Usage = "redirect a file or string to Discord"
 	app.Version = version
 	app.OnUsageError = handleUsageError
 	app.Authors = []*cli.Author {
@@ -138,12 +142,12 @@ func main() {
 		viper.AddConfigPath(defaultConfigPaths)
 
 		if err := viper.ReadInConfig(); err != nil {
-			return err
+			return exitErr(err)
 		}
 		var discoConfig DiscordConfig
 		err := viper.Unmarshal(&discoConfig)
 		if err != nil {
-			return err
+			return exitErr(err)
 		}
 
 		raw, err := ioutil.ReadAll(os.Stdin)
@@ -153,8 +157,15 @@ func main() {
 			channelID = discoConfig[botTokenKey].ChannelIDs[channelIDKey]
 		)
 
-		if post(raw, botToken, channelID) != nil {
-			return err
+		if botToken == "" {
+			return exitErr(fmt.Errorf("botToken specified by '%s' is empty. Please specify valid key of BotToken", botTokenKey))
+		}
+		if channelID == "" {
+			return exitErr(fmt.Errorf("channelID specified by '%s' is empty. Please specify valid key of ChannelID", channelIDKey))
+		}
+
+		if err := post(raw, botToken, channelID); err != nil {
+			return exitErr(err)
 		}
 
 		return nil
@@ -162,6 +173,7 @@ func main() {
 
 	err := app.Run(os.Args)
 	if err != nil {
-		exitErr(err)
+		printErr(err)
+		os.Exit(1)
 	}
 }
