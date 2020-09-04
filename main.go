@@ -72,21 +72,18 @@ func post(raw []byte, token string, channel string) error {
 	}
 
 	if mtype == Text {
-		s := string(raw)
-		l := len(s)
-		for l > 1 {
-			maxlen := 0
-			if l > discordMaxTextLen {
-				maxlen = discordMaxTextLen
-			} else {
-				maxlen = l
-			}
-			_, err := discord.ChannelMessageSend(channel, s[0:maxlen])
+		l := len(raw)
+		if l > discordMaxTextLen {
+			var filename = fmt.Sprintf("%s.%s", time.Now().Format("20060102150405"), "txt")
+			_, err := discord.ChannelFileSend(channel, filename, bytes.NewReader(raw))
 			if err != nil {
 				return err
 			}
-			s = s[maxlen:]
-			l = len(s)
+		} else {
+			_, err := discord.ChannelMessageSend(channel, string(raw))
+			if err != nil {
+				return err
+			}
 		}
 	} else {
 		times := time.Now().Format("20060102150405")
