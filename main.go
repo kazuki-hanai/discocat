@@ -22,6 +22,7 @@ var (
 	build   = ""
 	version = "v.1.0"
 	defaultConfigPaths = os.Getenv("HOME") + "/.config/discocat/"
+	discordMaxTextLen = 2000
 )
 
 func handleUsageError(c *cli.Context, err error, _ bool) error {
@@ -71,9 +72,21 @@ func post(raw []byte, token string, channel string) error {
 	}
 
 	if mtype == Text {
-		_, err := discord.ChannelMessageSend(channel, string(raw))
-		if err != nil {
-			return err
+		s := string(raw)
+		l := len(s)
+		for l > 1 {
+			maxlen := 0
+			if l > discordMaxTextLen {
+				maxlen = discordMaxTextLen
+			} else {
+				maxlen = l
+			}
+			_, err := discord.ChannelMessageSend(channel, s[0:maxlen])
+			if err != nil {
+				return err
+			}
+			s = s[maxlen:]
+			l = len(s)
 		}
 	} else {
 		times := time.Now().Format("20060102150405")
