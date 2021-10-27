@@ -1,26 +1,22 @@
 # discocat
 
-discocat is a simple commandline utility to post snippets to Discord
+discocat is a simple commandline utility to post snippets to Discord.
 
 ## Quick Start
 
 Make sure your `PATH` includes the `$GOPATH/bin` directory.
 
 ```
-$ go get http://github.com/wan-nyan-wan/discocat
+$ go get -u github.com/wan-nyan-wan/discocat
 $ mkdir -p ~/.config/discocat
-$ cat <<EOF > ~/.config/discocat/config.yml
-default:
-  BotToken: "bot token"
-  ChannelIDs:
-    default: "channel id"
-EOF
+$ cp config.yml.sample ~/.config/discocat/config.yml
+$ vim ~/.config/discocat/config.yml
 $ echo "hello" | discocat
 ```
 
 ## Configuration
 
-1. Create Discord bot and get bot TokenID
+1. Create Discord bot and get bot TokenID in [Discord Develper Portal](https://discord.com/developers/applications)
 2. Get ChannelID that you want to post snippets
 3. write configuration in `~/.config/discocat/config.yml`(refereing to config.yml.sample`)
 
