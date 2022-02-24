@@ -5,25 +5,22 @@ import (
 )
 
 // DiscordConfig is a configuration for Discord
-type DiscordConfig map[string] struct {
-	BotToken string
-	ChannelIDs map[string] string
+type DiscordConfig map[string]struct {
+	BotToken  string
+	ChannelID string
 }
 
 // CommandConfig is a configuration for Command
 type CommandConfig struct {
-	comment string
+	comment  string
 	filepath string
-	isPipe bool
+	isPipe   bool
 }
 
 func (discoConfig DiscordConfig) printConfig() {
 	for k, v := range discoConfig {
 		fmt.Println(k, ":")
 		fmt.Println("\tBotToken:", v.BotToken)
-		fmt.Println("\tChannelIDs:")
-		for k2, v2 := range v.ChannelIDs {
-			fmt.Println("\t\t", k2, ":", v2)
-		}
+		fmt.Println("\tChannelID", v.ChannelID)
 	}
 }

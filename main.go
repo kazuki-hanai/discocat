@@ -21,8 +21,11 @@ var (
 	commandName        = "discocat"
 	build              = ""
 	version            = "v.1.0"
-	defaultConfigPaths = os.Getenv("HOME") + "/.config/discocat/"
-	discordMaxTextLen  = 2000
+	defaultConfigPaths = [...]string{
+		".",
+		os.Getenv("HOME") + "/.config/discocat/",
+	}
+	discordMaxTextLen = 2000
 )
 
 func handleUsageError(c *cli.Context, err error, _ bool) error {
@@ -130,12 +133,6 @@ func main() {
 			Value:   "default",
 			Usage:   "bot name to post",
 		},
-		&cli.StringFlag{
-			Name:    "channel",
-			Aliases: []string{"c"},
-			Value:   "default",
-			Usage:   "channel name to post",
-		},
 		&cli.BoolFlag{
 			Name:    "tee",
 			Aliases: []string{"t"},
@@ -149,7 +146,9 @@ func main() {
 		)
 
 		viper.SetConfigName("config")
-		viper.AddConfigPath(defaultConfigPaths)
+		for _, defaultConfigPath := range defaultConfigPaths {
+			viper.AddConfigPath(defaultConfigPath)
+		}
 
 		if err := viper.ReadInConfig(); err != nil {
 			return exitErr(err)
@@ -173,7 +172,7 @@ func main() {
 
 		var (
 			botToken  = discoConfig[botTokenKey].BotToken
-			channelID = discoConfig[botTokenKey].ChannelIDs[channelIDKey]
+			channelID = discoConfig[botTokenKey].ChannelID
 		)
 
 		if botToken == "" {
