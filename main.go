@@ -1,28 +1,28 @@
 package main
 
 import (
-	"os"
-	"fmt"
-	"errors"
-	"io/ioutil"
-	"time"
 	"bytes"
+	"errors"
+	"fmt"
 	"image"
 	_ "image/gif"
-	_ "image/png"
 	_ "image/jpeg"
+	_ "image/png"
+	"io/ioutil"
+	"os"
+	"time"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/urfave/cli/v2"
 	"github.com/spf13/viper"
+	"github.com/urfave/cli/v2"
 )
 
 var (
-	commandName = "discocat"
-	build   = ""
-	version = "v.1.0"
+	commandName        = "discocat"
+	build              = ""
+	version            = "v.1.0"
 	defaultConfigPaths = os.Getenv("HOME") + "/.config/discocat/"
-	discordMaxTextLen = 2000
+	discordMaxTextLen  = 2000
 )
 
 func handleUsageError(c *cli.Context, err error, _ bool) error {
@@ -112,39 +112,39 @@ func main() {
 	app.Usage = "redirect a file or string to Discord"
 	app.Version = version
 	app.OnUsageError = handleUsageError
-	app.Authors = []*cli.Author {
-		&cli.Author {
-			Name: "hnkz",
-			Email: "hanakazu8989@gmail.com",
+	app.Authors = []*cli.Author{
+		&cli.Author{
+			Name:  "hnkz",
+			Email: "kazuki.hanai@wan-nyan-wan.net",
 		},
 	}
-	app.Flags = []cli.Flag {
-		&cli.BoolFlag {
-			Name: "list",
+	app.Flags = []cli.Flag{
+		&cli.BoolFlag{
+			Name:    "list",
 			Aliases: []string{"l"},
-			Usage: "list bot and channel names",
+			Usage:   "list bot and channel names",
 		},
-		&cli.StringFlag {
-			Name: "bot",
+		&cli.StringFlag{
+			Name:    "bot",
 			Aliases: []string{"b"},
-			Value: "default",
-			Usage: "bot name to post",
+			Value:   "default",
+			Usage:   "bot name to post",
 		},
-		&cli.StringFlag {
-			Name: "channel",
+		&cli.StringFlag{
+			Name:    "channel",
 			Aliases: []string{"c"},
-			Value: "default",
-			Usage: "channel name to post",
+			Value:   "default",
+			Usage:   "channel name to post",
 		},
-		&cli.BoolFlag {
-			Name: "tee",
+		&cli.BoolFlag{
+			Name:    "tee",
 			Aliases: []string{"t"},
-			Usage: "print stdin to screen before posting",
+			Usage:   "print stdin to screen before posting",
 		},
 	}
 	app.Action = func(c *cli.Context) error {
 		var (
-			botTokenKey = c.String("bot")
+			botTokenKey  = c.String("bot")
 			channelIDKey = c.String("channel")
 		)
 
@@ -172,7 +172,7 @@ func main() {
 		}
 
 		var (
-			botToken = discoConfig[botTokenKey].BotToken
+			botToken  = discoConfig[botTokenKey].BotToken
 			channelID = discoConfig[botTokenKey].ChannelIDs[channelIDKey]
 		)
 
