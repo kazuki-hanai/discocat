@@ -113,7 +113,7 @@ func main() {
 	app.Version = version
 	app.OnUsageError = handleUsageError
 	app.Authors = []*cli.Author{
-		&cli.Author{
+		{
 			Name:  "hnkz",
 			Email: "kazuki.hanai@wan-nyan-wan.net",
 		},
