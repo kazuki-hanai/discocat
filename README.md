@@ -49,7 +49,7 @@ $ go get -u github.com/wan-nyan-wan/discocat
 
 ## Usage
 
-````
+```
 NAME:
    discocat - redirect a file or string to Discord
 
@@ -91,3 +91,4 @@ $ cat test.jpeg | discocat --bot testbot --channel testchannel # post image to t
 
 discocat is greatly inspired by [slackcat](https://github.com/bcicen/slackcat).
 ```
+````
