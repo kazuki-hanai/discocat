@@ -60,7 +60,7 @@ VERSION:
    v.1.0
 
 AUTHOR:
-   hnkz <kazuki.hanai@wan-nyan-wan.net>
+   wan-nyan-wan <kazuki.hanai@wan-nyan-wan.net>
 
 COMMANDS:
    help, h  Shows a list of commands or help for one command
