@@ -1,9 +1,6 @@
-default:
-    BotToken: "bot token"
-    ChannelIDs:
-        default: "channel id"
-        channel01: "channel id"
 bot01:
-    BotToken: "bot token"
-    ChannelIDs:
-        default: "channel id"
+    BotToken: "bot01 token"
+    ChannelID: "channel01 id"
+bot02:
+    BotToken: "bot02 token"
+    ChannelID: "channel02 id"
