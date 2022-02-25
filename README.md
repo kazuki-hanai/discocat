@@ -11,9 +11,13 @@ Make sure your `PATH` includes the `$GOPATH/bin` directory.
 ```
 $ go get -u github.com/wan-nyan-wan/discocat
 $ mkdir -p ~/.config/discocat
-$ cp config.yml.sample ~/.config/discocat/config.yml
-$ vim ~/.config/discocat/config.yml
-$ echo "hello" | discocat --bot bot01
+$ cat <<EOF > ~/.config/discocat/config.yml
+default:
+    BotToken: "<your bot token>"
+    ChannelID: "<your channel id>"
+EOF
+$ vim ~/.config/discocat/config.yml # replace bot token and channel id
+$ echo "hello" | discocat
 ```
 
 ## Configuration
@@ -26,14 +30,14 @@ The below is a sample configuration. In default, discocat use `default` as a bot
 
 ```
 default:
-    BotToken: "default bot token"
-    ChannelID: "default channel id"
+    BotToken: "<default bot token>"
+    ChannelID: "<default channel id>"
 bot01:
-    BotToken: "bot01 token"
-    ChannelID: "channel01 id"
+    BotToken: "<bot01 token>"
+    ChannelID: "<channel01 id>"
 bot02:
-    BotToken: "bot02 token"
-    ChannelID: "channel02 id"
+    BotToken: "<bot02 token>"
+    ChannelID: "<channel02 id>"
 ```
 
 ## Building
@@ -77,18 +81,15 @@ GLOBAL OPTIONS:
 
 ### Examples
 
-````
+```
 $ discocat # post stdin(If you want to stop to input, please input Ctrl-D) to the channel via default bot
 $ discocat -h # show help
 $ discocat -l # show config
 $ echo "aiueo" | discocat # post text to the channel via default bot
 $ cat test.png | discocat # post image to the channel via default bot
 $ echo "hello" | discocat --bot testbot # post testbot
-
 ```
 
 ## References
 
 discocat is greatly inspired by [slackcat](https://github.com/bcicen/slackcat).
-```
-````
