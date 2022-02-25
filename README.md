@@ -2,6 +2,8 @@
 
 discocat is a simple commandline utility to post snippets to Discord.
 
+<img width="500px" src="./imgs/demo.gif" alt="discocat"/>
+
 ## Quick Start
 
 Make sure your `PATH` includes the `$GOPATH/bin` directory.
