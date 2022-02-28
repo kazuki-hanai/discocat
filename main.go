@@ -23,7 +23,7 @@ var (
 	version            = "v.1.0"
 	defaultConfigPaths = [...]string{
 		".",
-		os.Getenv("HOME") + "/.config/discocat/",
+		os.Getenv("HOME") + "/.config/",
 	}
 	discordMaxTextLen = 2000
 )
