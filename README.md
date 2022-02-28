@@ -10,13 +10,13 @@ Make sure your `PATH` includes the `$GOPATH/bin` directory.
 
 ```
 $ go get -u github.com/wan-nyan-wan/discocat
-$ mkdir -p ~/.config/discocat
-$ cat <<EOF > ~/.config/discocat/config.yml
+$ mkdir -p ~/.config
+$ cat <<EOF > ~/.config/discocat.yml
 default:
     BotToken: "<your bot token>"
     ChannelID: "<your channel id>"
 EOF
-$ vim ~/.config/discocat/config.yml # replace bot token and channel id
+$ vim ~/.config/discocat.yml # replace bot token and channel id
 $ echo "hello" | discocat
 ```
 
@@ -24,7 +24,7 @@ $ echo "hello" | discocat
 
 1. Create Discord bot and get bot TokenID in [Discord Develper Portal](https://discord.com/developers/applications)
 2. Get ChannelID that you want to post snippets
-3. write configuration in `~/.config/discocat/config.yml`(refereing to config.yml.sample`)
+3. write configuration in `~/.config/discocat.yml`(refereing to discocat.yml.sample`)
 
 The below is a sample configuration. In default, discocat use `default` as a bot name. If you want to use others, use `--bot` option.
 

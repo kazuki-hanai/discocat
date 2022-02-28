@@ -1,5 +1,5 @@
 discocat
-config.yml
+discocat.yml
 *.jpg
 *.jpeg
 *.png

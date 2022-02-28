@@ -145,7 +145,7 @@ func main() {
 			channelIDKey = c.String("channel")
 		)
 
-		viper.SetConfigName("config")
+		viper.SetConfigName("discocat")
 		for _, defaultConfigPath := range defaultConfigPaths {
 			viper.AddConfigPath(defaultConfigPath)
 		}
