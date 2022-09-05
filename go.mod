@@ -3,7 +3,7 @@ module github.com/wan-nyan-wan/discocat
 go 1.14
 
 require (
-	github.com/bwmarrin/discordgo v0.24.0
+	github.com/bwmarrin/discordgo v0.26.1
 	github.com/fatih/color v1.13.0
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
