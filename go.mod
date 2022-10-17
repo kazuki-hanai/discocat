@@ -11,7 +11,7 @@ require (
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/spf13/afero v1.8.1 // indirect
 	github.com/spf13/viper v1.10.1
-	github.com/urfave/cli/v2 v2.4.0
+	github.com/urfave/cli/v2 v2.20.2
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292 // indirect
 	golang.org/x/sys v0.0.0-20220224120231-95c6836cb0e7 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
